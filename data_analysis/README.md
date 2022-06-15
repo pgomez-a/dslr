@@ -11,7 +11,8 @@ Count non-NA cells for each column or row.
 <img align="right" width="500" alt="mean" src="https://user-images.githubusercontent.com/74931024/173940847-c0fefb99-6ee7-48d4-b1d9-fcf1544ab951.png">
 
 ### [mean](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.mean.html)
-Compute the mean value of each column for the given dataset.
+Compute the mean value of each column for the given dataset.<br>
+**The mean represents balance.** The mean is the value that each data would have if they were all the same. Since we are working with a sample and not with a population, what we calculate is the **sample mean** and not the mean itself.
 
 <img align="right" width="500" alt="std" src="https://user-images.githubusercontent.com/74931024/173941053-93a90dd4-1c09-48a7-9405-e914940b2d62.png">
 
