@@ -11,7 +11,7 @@ Computes the mean value of each column for the given dataset. **The mean represe
 
 ### [std](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.std.html)
 
-<img align="right" width="500" alt="std" src="https://user-images.githubusercontent.com/74931024/173941053-93a90dd4-1c09-48a7-9405-e914940b2d62.png">
+<img align="right" width="500" alt="std" src="https://user-images.githubusercontent.com/74931024/173956465-4fb26ca5-aa5b-44ea-aaf4-e759e880652f.png">
 
 Computes the standard deviation value of each column for the given dataset. **The standard deviation measures the spread of the data for a given dataset.** The larger the standard deviation, the larger the population spread; the smaller the standard deviation, the smaller the population spread.<br><br>
 As with the mean, what we calculate is the **sample standard deviation**, because we are working with a sample and not with a population. This is why we divide by **n - 1** and not just by **n**.
