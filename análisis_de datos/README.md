@@ -16,7 +16,8 @@ Computes the mean value of each column for the given dataset. **The mean represe
 Computes the standard deviation value of each column for the given dataset. **The standard deviation measures the spread of the data for a given dataset.** The larger the standard deviation, the larger the population spread; the smaller the standard deviation, the smaller the population spread.<br><br>
 As with the mean, what we calculate is the **sample standard deviation**, because we are working with a sample and not with a population. This is why we divide by **n - 1** and not just by **n**.
 
+### [percentile](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.quantile.html)
+
 <img align="right" width="500" alt="percentile" src="https://user-images.githubusercontent.com/74931024/173941137-61091559-3f88-429d-92a2-c3556a00a01b.png">
 
-### [percentile](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.quantile.html)
-Computes the specified percentile of each column for the given dataset.
+Computes the specified percentile of each column for the given dataset. **A percentile is a positional statistical measure that divides the ordered distribution of data into one hundred equal parts.** This measure shows the observations for a variable that are below a specified percentage.
