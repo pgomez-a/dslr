@@ -7,3 +7,5 @@ Before we start training our model, **we need to study the available data.** Thi
 For this reason, the first thing we need to do in **dslr** is to create an executable that describes the contents of a given database. This program will obtain the numerical columns of said database and will show different statistical measures related to each column, such as: **count, mean, standard deviation, percentiles, etc.** Thanks to this, we will be able to get an idea of the main objective that we want to achieve, which is to be able to classify each Howard student in their respective houses.<br>
 
 For more information on the mathematical formulas used to calculate the statistical measures, **[click here.](https://github.com/pgomez-a/dslr/tree/main/data_analysis)**
+
+<img align="center" width="1700" alt="describe" src="https://user-images.githubusercontent.com/74931024/173954656-4298aff0-99e6-47f7-8a44-d2880f84a3f7.png">
