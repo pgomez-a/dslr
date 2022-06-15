@@ -8,4 +8,4 @@ For this reason, the first thing we need to do in **dslr** is to create an execu
 
 For more information on the mathematical formulas used to calculate the statistical measures, **[click here.](https://github.com/pgomez-a/dslr/tree/main/data_analysis)**
 
-<img align="center" width="1700" alt="describe" src="https://user-images.githubusercontent.com/74931024/173954656-4298aff0-99e6-47f7-8a44-d2880f84a3f7.png">
+<img align="center" width="850" alt="describe" src="https://user-images.githubusercontent.com/74931024/173954822-fcbd2b72-fb09-48cb-a16e-a792dcb1197d.png">
