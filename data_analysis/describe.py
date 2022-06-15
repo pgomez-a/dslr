@@ -75,14 +75,17 @@ def get_percentile(percentile, dataset, count):
     percentile_list = np.array([])
     pos = 0
     for label in dataset:
-        values = dataset[label].sort_values()
-        percentile_pos = (percentile / 100) * count[pos]
-        if percentile_pos - int(percentile_pos) == 0:
-            valueOne = values[int(percentile_pos) - 1]
-            valueTwo = values[int(percentile_pos)]
+        values = dataset[label].copy()
+        values = pd.Series(values.sort_values().values)
+        percentile_pos = count[pos] * percentile
+        percentile_floor = np.floor(percentile_pos)
+        percentile_ceil = np.ceil(percentile_pos)
+        if percentile_ceil - percentile_floor == 0:
+            valueOne = values[int(percentile_floor) - 1]
+            valueTwo = values[int(percentile_ceil)]
             percentile_list = np.append(percentile_list, (valueOne + valueTwo) / 2)
         else:
-            percentile_list = np.append(percentile_list, values[int(percentile_pos)])
+            percentile_list = np.append(percentile_list, values[int(percentile_ceil) - 1])
         pos += 1
     return percentile_list
 
@@ -97,9 +100,9 @@ if __name__ == '__main__':
     data_std = get_std(dataset, data_count, data_mean)
     data_min = get_min(dataset)
     data_max = get_max(dataset)
-    data_p25 = get_percentile(25, dataset, data_count)
-    data_p50 = get_percentile(50, dataset, data_count)
-    data_p75 = get_percentile(75, dataset, data_count)
+    data_p25 = get_percentile(0.25, dataset, data_count)
+    data_p50 = get_percentile(0.5, dataset, data_count)
+    data_p75 = get_percentile(0.75, dataset, data_count)
     describe_values = [data_count, data_mean, data_std, data_min, data_p25, data_p50, data_p75, data_max]
     describe_index = ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']
     describe = pd.DataFrame(describe_values, index = describe_index, columns = dataset.columns)
