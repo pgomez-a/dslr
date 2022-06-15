@@ -106,5 +106,7 @@ if __name__ == '__main__':
     describe_values = [data_count, data_mean, data_std, data_min, data_p25, data_p50, data_p75, data_max]
     describe_index = ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']
     describe = pd.DataFrame(describe_values, index = describe_index, columns = dataset.columns)
+    print()
     print(describe)
+    print()
     sys.exit(0)
