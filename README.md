@@ -17,6 +17,6 @@ According to **[Wikipedia](https://en.wikipedia.org/wiki/Data_and_information_vi
 
 Another important step that we must take before training our model is to visualize the available data. We have calculated and studied different statistical measures that have provided us with very useful information about the problem we want to solve. But we can get more information just as valuable simply by visualizing the data. Thanks to this we will be able to understand, among other things, **how the data is distributed, the dependency that exists between the variables, etc.**<br>
 
-The second part of dslr is to create different executables that show us different graphs related to the data. In this way, we will be more prepared for the third step, when we study the best training algorithm to fit our data. We will be able to make a better decision about this algorithm if we consider the information we have obtained from data analysis and data visualization.<br>
+The second part of **dslr** is to create different executables that show us different graphs related to the data. In this way, we will be more prepared for the third step, when we study the best training algorithm to fit our data. We will be able to make a better decision about this algorithm if we consider the information we have obtained from data analysis and data visualization.<br>
 
 For more information on the statistical graphs used to study the available data, **[click here.](https://github.com/pgomez-a/dslr/tree/main/data_visualization)**
