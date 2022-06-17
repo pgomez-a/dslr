@@ -6,6 +6,12 @@ All the mathematical formulas used to calculate these values have tried to be th
 ## Centralization Measures
 They only make sense if they are used with numeric values. **They are values around which the data is grouped.**
 
+<img align="right" width="500" alt="range" src="https://user-images.githubusercontent.com/74931024/174412212-179002c6-766d-45b9-b86b-79e8c5b5c139.png">
+<br>
+
+### range
+The range measures the amplitude of data.
+
 ### [mode](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.mode.html)
 The **mode** is the **value with the highest absolute frequency**, that is, it's the value that is repeated the most. An important aspect to keep in mind is that there may or may not be a mode (if all values have the same absolute frequency). Furthermore, if for example there are two different values with the highest absolute frequency, we say that the data distribution is **bimodal.**
 
