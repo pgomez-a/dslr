@@ -24,3 +24,5 @@ For more information on the statistical graphs used to study the available data,
 <div align="center">
 <img width="410" alt="histogram" src="https://user-images.githubusercontent.com/74931024/174310059-afee3390-35db-4015-bf0c-2535967da865.png">
 <img width="410" alt="scatter plot" src="https://user-images.githubusercontent.com/74931024/174310127-6d693c4a-5cc6-4d85-a851-860e4736f235.png">
+<img width="900" alt="pair plot" src="https://user-images.githubusercontent.com/74931024/174330795-8aa7e669-f0c4-4fcb-8c2b-897726527baf.png">
+</div>
