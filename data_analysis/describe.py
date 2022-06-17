@@ -2,16 +2,19 @@ import pandas as pd
 import numpy as np
 import sys
 
-def read_dataset(data_file):
+def read_dataset():
     """
     Opens the given dataset.
     """
-    try:
-        dataset = pd.read_csv(data_file)
-        return dataset
-    except:
-        print("\033[1m\033[91mError. {} can't be read.\n\033[0m".format(data_file))
+    if len(sys.argv) != 1:
+        print("\033[1m\033[91mError. pair_plot.py does not take any argument.\n\033[0m")
         sys.exit(1)
+    try:
+        dataset = pd.read_csv('../datasets/dataset_train.csv')
+    except:
+        print("\033[1m\033[91mError. Dataset can't be read.\n\033[0m")
+        sys.exit(1)
+    return dataset
 
 def get_count(dataset):
     """
@@ -90,10 +93,7 @@ def get_percentile(percentile, dataset, count):
     return percentile_list
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("\033[1m\033[91mError. Dataset to open doesn't specified.\n\033[0m")
-        sys.exit(1)
-    dataset = read_dataset(sys.argv[1])
+    dataset = read_dataset()
     dataset = dataset.select_dtypes(include = 'number')
     data_count = get_count(dataset)
     data_mean = get_mean(dataset, data_count)
