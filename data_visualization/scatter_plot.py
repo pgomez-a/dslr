@@ -23,7 +23,7 @@ def read_dataset():
 
 def plot_scatter(dataset, xlabel, ylabel):
     """
-    Plots the histogram corresponding to the given label.
+    Plots the scatter plot corresponding to the given label.
     """
     raven = dataset.loc[dataset['Hogwarts House'] == 'Ravenclaw']
     slyth = dataset.loc[dataset['Hogwarts House'] == 'Slytherin']
