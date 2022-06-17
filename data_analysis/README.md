@@ -16,12 +16,12 @@ The **mode** is the **value with the highest absolute frequency**, that is, it's
 Computes the mean value of each column for the given dataset. **The mean represents balance.** The mean is the value that each data would have if they were all the same. Since we are working with a sample and not with a population, what we calculate is the **sample mean** and not the mean itself.
 
 - **Contains more information** than the median because it uses the values of all the data.
-- It is easier to calculate than the median.
+- It's easier to calculate than the median.
 
 ### [median](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.median.html)
 The **median** is a value that, ordered from smallest to largest, 50% of the data is less than or equal to this value and the other 50% is greater than or equal to it. With ordered data, if there are an odd number of values, the median is the value in the middle. If there is an even number of values, the median is the half sum of the two middle values. The median corresponds to the 50th percentile.
 
-- **It is more robust to changes** in the data than the mean.
+- **It's more robust to changes** in the data than the mean.
 
 ## Dispersion Measures
 They complete the information provided by the centralization measures and **indicate whether they are more or less representative of the dataset.** As the measure gets smaller, the spread of the data in the dataset decreases.
