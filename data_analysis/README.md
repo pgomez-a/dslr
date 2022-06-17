@@ -4,6 +4,7 @@ The different statistical measures that have been used to describe the given dat
 All the mathematical formulas used to calculate these values have tried to be the same as those used by the **[Pandas library](https://pandas.pydata.org)**. In the case of quantiles, the result may vary by a few decimal places.
 
 ## Centralization Measures
+They only make sense if they are used with numeric values. **They are values around which the data is grouped.**
 
 ### [mode](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.mode.html)
 The **mode** is the **value with the highest absolute frequency**, that is, it's the value that is repeated the most. An important aspect to keep in mind is that there may or may not be a mode (if all values have the same absolute frequency). Furthermore, if for example there are two different values with the highest absolute frequency, we say that the data distribution is **bimodal.**
@@ -21,6 +22,9 @@ Computes the mean value of each column for the given dataset. **The mean represe
 The **median** is a value that, ordered from smallest to largest, 50% of the data is less than or equal to this value and the other 50% is greater than or equal to it. With ordered data, if there are an odd number of values, the median is the value in the middle. If there is an even number of values, the median is the half sum of the two middle values. The median corresponds to the 50th percentile.
 
 - **It is more robust to changes** in the data than the mean.
+
+## Dispersion Measures
+They complete the information provided by the centralization measures and **indicate whether they are more or less representative of the dataset.** As the measure gets smaller, the spread of the data in the dataset decreases.
 
 ### [std](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.std.html)
 
