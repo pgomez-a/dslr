@@ -20,3 +20,7 @@ Another important step that we must take before training our model is to visuali
 The second part of **dslr** is to create different executables that show us different graphs related to the data. In this way, we will be more prepared for the third step, when we study the best training algorithm to fit our data. We will be able to make a better decision about this algorithm if we consider the information we have obtained from data analysis and data visualization.<br>
 
 For more information on the statistical graphs used to study the available data, **[click here.](https://github.com/pgomez-a/dslr/tree/main/data_visualization)**
+
+<div align="center">
+<img width="500" alt="histogram" src="https://user-images.githubusercontent.com/74931024/174310059-afee3390-35db-4015-bf0c-2535967da865.png">
+<img width="500" alt="scatter plot" src="https://user-images.githubusercontent.com/74931024/174310127-6d693c4a-5cc6-4d85-a851-860e4736f235.png">
