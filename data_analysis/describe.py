@@ -7,7 +7,7 @@ def read_dataset():
     Opens the given dataset.
     """
     if len(sys.argv) != 1:
-        print("\033[1m\033[91mError. pair_plot.py does not take any argument.\n\033[0m")
+        print("\033[1m\033[91mError. describe.py does not take any argument.\n\033[0m")
         sys.exit(1)
     try:
         dataset = pd.read_csv('../datasets/dataset_train.csv')
@@ -34,6 +34,17 @@ def get_mean(dataset, count):
         mean_list = np.append(mean_list, dataset[label].sum())
     return mean_list / count
 
+def get_var(dataset, count, mean):
+    """
+    Computes the var value of each column for the given dataset.
+    """
+    var_list = np.array([])
+    pos = 0
+    for label in dataset:
+        var_list = np.append(var_list, ((dataset[label] - mean[pos]) ** 2).sum())
+        pos += 1
+    return var_list / (count - 1)
+
 def get_std(dataset, count, mean):
     """
     Compute the std value of each column for the given dataset.
@@ -44,6 +55,12 @@ def get_std(dataset, count, mean):
         std_list = np.append(std_list, ((dataset[label] - mean[pos]) ** 2).sum())
         pos += 1
     return np.sqrt(std_list / (count - 1))
+
+def get_cof(std, mean):
+    """
+    Computes the coefficient of variation of each column for the given std & mean.
+    """
+    return (std / abs(mean)) * 100
 
 def get_min(dataset):
     """
@@ -71,6 +88,12 @@ def get_max(dataset):
         max_list = np.append(max_list, max_value)
     return max_list
 
+def get_rng(data_max, data_min):
+    """
+    Computes the range of each column for the given max & min values.
+    """
+    return data_max - data_min
+
 def get_percentile(percentile, dataset, count):
     """
     Computes the specified percentile of each column for the given dataset.
@@ -92,19 +115,46 @@ def get_percentile(percentile, dataset, count):
         pos += 1
     return percentile_list
 
+def get_fisher(dataset, mean, count, std):
+    """
+    Computes the Fisher's coefficient of each column for the given dataset.
+    """
+    fisher_list = np.array([])
+    pos = 0
+    for label in dataset:
+        fisher_list = np.append(fisher_list, ((dataset[label] - mean[pos]) ** 3).sum())
+        pos += 1
+    return (fisher_list / (count - 1)) / (std ** 3)
+
+def get_curtosis(dataset, mean, count, std):
+    """
+    Computes the Curtosis' coefficient of each column for the given dataset.
+    """
+    curtosis_list = np.array([])
+    pos = 0
+    for label in dataset:
+        curtosis_list = np.append(curtosis_list, ((dataset[label] - mean[pos]) ** 4).sum())
+        pos += 1
+    return ((curtosis_list / (count - 1)) / (std ** 4)) - 3
+
 if __name__ == '__main__':
     dataset = read_dataset()
     dataset = dataset.select_dtypes(include = 'number')
     data_count = get_count(dataset)
     data_mean = get_mean(dataset, data_count)
+    data_var = get_var(dataset, data_count, data_mean)
     data_std = get_std(dataset, data_count, data_mean)
+    data_cof = get_cof(data_std, data_mean)
     data_min = get_min(dataset)
     data_max = get_max(dataset)
+    data_rng = get_rng(data_max, data_min)
     data_p25 = get_percentile(0.25, dataset, data_count)
     data_p50 = get_percentile(0.5, dataset, data_count)
     data_p75 = get_percentile(0.75, dataset, data_count)
-    describe_values = [data_count, data_mean, data_std, data_min, data_p25, data_p50, data_p75, data_max]
-    describe_index = ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']
+    data_fisher = get_fisher(dataset, data_mean, data_count, data_std)
+    data_curtosis = get_curtosis(dataset, data_mean, data_count, data_std)
+    describe_values = [data_count, data_mean, data_var, data_std, data_cof, data_min, data_p25, data_p50, data_p75, data_max, data_rng, data_fisher, data_curtosis]
+    describe_index = ['count', 'mean', 'var', 'std', 'cof', 'min', '25%', '50%', '75%', 'max', 'rng', 'Fisher', 'Curtosis']
     describe = pd.DataFrame(describe_values, index = describe_index, columns = dataset.columns)
     print()
     print(describe)
