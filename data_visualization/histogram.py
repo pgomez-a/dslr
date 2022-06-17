@@ -2,42 +2,43 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 
-def read_dataset(data_file):
+def read_dataset():
     """
-    Opens the given dataset.
+    Opens the given dataset and selects the label to plot.
     """
     try:
-        dataset = pd.read_csv(data_file)
-        return dataset
+        dataset = pd.read_csv('../datasets/dataset_train.csv')
     except:
-        print("\033[1m\033[91mError. {} can't be read.\n\033[0m".format(data_file))
+        print("\033[1m\033[91mError. Dataset can't be read.\n\033[0m")
         sys.exit(1)
+    label = 'Care of Magical Creatures'
+    if len(sys.argv) == 2 and sys.argv[1] in dataset.columns:
+        label = sys.argv[1]
+    elif len(sys.argv) == 2:
+        print("\033[1m\033[91mError. {} not in:\n\t{}.\n\033[0m".format(sys.argv[1], dataset.columns))
+        sys.exit(1)
+    return dataset, label
+
+def plot_histogram(dataset, label):
+    """
+    Plots the histogram corresponding to the given label.
+    """
+    raven = dataset.loc[dataset['Hogwarts House'] == 'Ravenclaw']
+    slyth = dataset.loc[dataset['Hogwarts House'] == 'Slytherin']
+    gryff = dataset.loc[dataset['Hogwarts House'] == 'Gryffindor']
+    huffl = dataset.loc[dataset['Hogwarts House'] == 'Hufflepuff']
+    plt.hist(raven.loc[:, label], alpha = 0.65, color = 'cornflowerblue', label = 'Ravenclaw')
+    plt.hist(slyth.loc[:, label], alpha = 0.65, color = 'limegreen', label = 'Slytherin')
+    plt.hist(gryff.loc[:, label], alpha = 0.65, color = 'firebrick', label = 'Gryffindor')
+    plt.hist(huffl.loc[:, label], alpha = 0.65, color = 'yellow', label = 'Hufflepuff')
+    plt.xlabel(label)
+    plt.ylabel('Number of Students')
+    plt.title('HISTOGRAM')
+    plt.grid(alpha = 0.7)
+    plt.legend()
+    plt.show()
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("\033[1m\033[91mError. Dataset to open doesn't specified.\n\033[0m")
-        sys.exit(1)
-    dataset = read_dataset(sys.argv[1])
-    numeric_dataset = dataset.select_dtypes(include = 'number')
-    figure, axis = plt.subplots(2, 7)
-    y_axis = 0
-    x_axis = 0
-    for label in numeric_dataset:
-        raven = dataset.loc[dataset['Hogwarts House'] == 'Ravenclaw']
-        slyth = dataset.loc[dataset['Hogwarts House'] == 'Slytherin']
-        gryff = dataset.loc[dataset['Hogwarts House'] == 'Gryffindor']
-        huffl= dataset.loc[dataset['Hogwarts House'] == 'Hufflepuff']
-        axis[y_axis, x_axis].hist(raven.loc[:, label], alpha = 0.75, color = 'cornflowerblue')
-        axis[y_axis, x_axis].hist(slyth.loc[:, label], alpha = 0.75, color = 'limegreen')
-        axis[y_axis, x_axis].hist(gryff.loc[:, label], alpha = 0.75, color = 'firebrick')
-        axis[y_axis, x_axis].hist(huffl.loc[:, label], alpha = 0.75, color = 'yellow')
-        axis[y_axis, x_axis].set_xlabel(label)
-        if x_axis == 0:
-            axis[y_axis, x_axis].set_ylabel('Number of students')
-        x_axis += 1
-        if x_axis == 7:
-            y_axis += 1
-            x_axis = 0
-    figure.legend(labels = ['Ravenclaw', 'Slytherin', 'Gryffindor', 'Hufflepuff'])
-    plt.show()
+    dataset, label = read_dataset()
+    plot_histogram(dataset, label)
     sys.exit(0)
