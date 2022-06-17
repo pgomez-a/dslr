@@ -55,3 +55,17 @@ Variance cannot be used as a measure of dispersion if what we want is to **compa
 <img align="right" width="500" alt="percentile" src="https://user-images.githubusercontent.com/74931024/174411622-46f60da4-17d8-42e5-a710-fb47791aac77.png">
 
 **A percentile is a positional statistical measure that divides the ordered distribution of data into one hundred equal parts.** This measure shows the observations for a variable that are below a specified percentage.
+
+## Shape Measures
+
+### Fisher's coefficient
+It gives us an idea of the **symmetry or asymmetry** of the data distribution **(hene its shape)** and allows us to compare different datasets.
+- **CAF > 0** - The distribution is asymmetric to the right.
+- **CAF = 0** - The distribution is symmetric.
+- **CAF < 0** - The distribution is asymmetric to the left.
+
+### Kurtosis coefficient
+With this coefficient we get an idea of how **“spiky”** or **“flat”** a distribution is **(hence its shape)** compared to a standard distribution: the normal distribution.
+- **Kurtosis > 0** - The data distribution is more "spiky" than the normal distribution with the same mean and variance as the data.
+- **Kurtosis = 0** - The data distribution is just as “spiky” as the normal distribution with the same mean and variance as the data.
+- **Kurtosis < 0** - The data distribution is less "spiky" than the normal distribution with the same mean and variance as the data.
