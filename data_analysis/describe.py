@@ -124,7 +124,7 @@ def get_fisher(dataset, mean, count, std):
     for label in dataset:
         fisher_list = np.append(fisher_list, ((dataset[label] - mean[pos]) ** 3).sum())
         pos += 1
-    return (fisher_list / (count - 1)) / (std ** 3)
+    return (fisher_list / count) / (std ** 3)
 
 def get_curtosis(dataset, mean, count, std):
     """
@@ -135,7 +135,7 @@ def get_curtosis(dataset, mean, count, std):
     for label in dataset:
         curtosis_list = np.append(curtosis_list, ((dataset[label] - mean[pos]) ** 4).sum())
         pos += 1
-    return ((curtosis_list / (count - 1)) / (std ** 4)) - 3
+    return ((curtosis_list / count) / (std ** 4)) - 3
 
 if __name__ == '__main__':
     dataset = read_dataset()
