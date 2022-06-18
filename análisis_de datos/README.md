@@ -59,12 +59,18 @@ Variance cannot be used as a measure of dispersion if what we want is to **compa
 ## Shape Measures
 
 ### Fisher's coefficient
+
+<img align="right" width="500" alt="Fisher" src="https://user-images.githubusercontent.com/74931024/174413913-6ad4380e-9c3b-4371-abe9-04130445f544.png">
+
 It gives us an idea of the **symmetry or asymmetry** of the data distribution **(hene its shape)** and allows us to compare different datasets.
 - **CAF > 0** - The distribution is asymmetric to the right.
 - **CAF = 0** - The distribution is symmetric.
 - **CAF < 0** - The distribution is asymmetric to the left.
 
 ### Kurtosis coefficient
+
+<img align="right" width="500" alt="kurtosis" src="https://user-images.githubusercontent.com/74931024/174413977-2e119279-a9f0-496d-bc1c-8a6998909cbe.png">
+
 With this coefficient we get an idea of how **“spiky”** or **“flat”** a distribution is **(hence its shape)** compared to a standard distribution: the normal distribution.
 - **Kurtosis > 0** - The data distribution is more "beaked" than the normal distribution with the same mean and variance as the data.
 - **Kurtosis = 0** - The data distribution is just as “beaked” as the normal distribution with the same mean and variance as the data.
