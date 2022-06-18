@@ -66,6 +66,6 @@ It gives us an idea of the **symmetry or asymmetry** of the data distribution **
 
 ### Kurtosis coefficient
 With this coefficient we get an idea of how **“spiky”** or **“flat”** a distribution is **(hence its shape)** compared to a standard distribution: the normal distribution.
-- **Kurtosis > 0** - The data distribution is more "spiky" than the normal distribution with the same mean and variance as the data.
-- **Kurtosis = 0** - The data distribution is just as “spiky” as the normal distribution with the same mean and variance as the data.
-- **Kurtosis < 0** - The data distribution is less "spiky" than the normal distribution with the same mean and variance as the data.
+- **Kurtosis > 0** - The data distribution is more "beaked" than the normal distribution with the same mean and variance as the data.
+- **Kurtosis = 0** - The data distribution is just as “beaked” as the normal distribution with the same mean and variance as the data.
+- **Kurtosis < 0** - The data distribution is less "beaked" than the normal distribution with the same mean and variance as the data.
