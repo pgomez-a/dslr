@@ -1,6 +1,6 @@
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import warnings
 import math
 import sys
 
@@ -28,7 +28,7 @@ def get_logreg_values(dataset):
     X = np.insert(X, 0, 1, 1)
     X[np.isnan(X)] = 0.
     theta = np.zeros([1, X.shape[1]]).reshape((-1, 1))
-    return X, Y, theta
+    return Y, X, theta
 
 def progress_bar(iters, label):
     """
@@ -39,7 +39,8 @@ def progress_bar(iters, label):
         perc = (100 * it) / iters
         if perc % 2 == 0:
             bar += "="
-        print("\033[1m[{}][{: <51}] {}/{}  {:.0f}%\033[0m".format(label, bar + ">", it + 1, iters, perc), end = "\r")
+        print("\033[1m[{:10}][{: <51}]".format(label, bar + ">"), end = " ")
+        print("{}/{}  {:.0f}%\033[0m".format(it + 1, iters, perc), end = "\r")
         yield it
     print()
 
@@ -55,36 +56,41 @@ def predict(X, theta):
     """
     return sigmoid(np.matmul(X, theta))
 
-def loss(X, theta, Y, label):
+def loss(Y, Y_hat, theta, lambda_, label):
     """
     Computes the loss for the given parameters.
     """
-    Y_hat = predict(X, theta)
-    Y_hat[Y_hat == 0.] += 1e-15
-    Y_hat[Y_hat == 1.] -= 1e-15
     Y[Y != label] = 0.
     Y[Y == label] = 1.
-    return -sum(Y * np.log(Y_hat) + (1 - Y) * np.log(1 - Y_hat)) / Y.size
+    Y_hat[Y_hat == 0.] += 1e-15
+    Y_hat[Y_hat == 1.] -= 1e-15
+    l2_theta = np.copy(theta)
+    l2_theta[0][0] = 0.
+    non_reg_cost = -sum(Y * np.log(Y_hat) + (1 - Y) * np.log(1 - Y_hat)) / Y.size
+    return non_reg_cost + (lambda_ * np.matmul(l2_theta.transpose(), l2_theta)) / (2 * Y.size)
 
-def gradient(X, theta, Y, label):
+def gradient(Y, X, theta, lambda_):
     """
     Computes a gradient descent for the given values.
     """
     Y_hat = predict(X, theta)
     cost = (Y_hat - Y).astype(float)
-    cost[np.isnan(cost)] = 1.
-    return  np.matmul(X.transpose(), cost) / Y.size
+    l2_theta = np.copy(theta)
+    l2_theta[0][0] = 0.
+    non_reg_grad = np.matmul(X.transpose(), cost)
+    return (non_reg_grad + (lambda_ * l2_theta)) / Y.size
 
-def train(X, theta, Y, label):
+def train(Y, X, theta, lambda_, label):
     """
     Trains the model adjusted to the desired label for the given parameters.
     """
-    alpha = 0.01
-    max_iter = 10000
+    alpha = 0.0001
+    max_iter = 50000
     Y[Y != label] = 0.
     Y[Y == label] = 1.
     for i in progress_bar(max_iter, label):
-        theta -= alpha * gradient(X, theta, Y, label)
+        tmp_theta = gradient(Y, X, theta, lambda_)
+        theta -= (alpha * tmp_theta)
     return theta
 
 def store_in_file(file, theta):
@@ -96,13 +102,14 @@ def store_in_file(file, theta):
     file.write('\n')
 
 if __name__ == '__main__':
+    warnings.filterwarnings('ignore')
     dataset = read_dataset()
     save_theta = open('.theta', 'w')
-    X, Y, theta = get_logreg_values(dataset)
-    raven_theta = train(X, np.copy(theta), np.copy(Y), 'Ravenclaw') 
-    slyth_theta = train(X, np.copy(theta), np.copy(Y), 'Slytherin')
-    gryff_theta = train(X, np.copy(theta), np.copy(Y), 'Gryffindor')
-    huffl_theta = train(X, np.copy(theta), np.copy(Y), 'Hufflepuff')
+    Y, X, theta = get_logreg_values(dataset)
+    raven_theta = train(np.copy(Y), X, np.copy(theta), 0.1, 'Ravenclaw') 
+    slyth_theta = train(np.copy(Y), X, np.copy(theta), 0.1, 'Slytherin')
+    gryff_theta = train(np.copy(Y), X, np.copy(theta), 0.1, 'Gryffindor')
+    huffl_theta = train(np.copy(Y), X, np.copy(theta), 0.1, 'Hufflepuff')
     store_in_file(save_theta, raven_theta)
     store_in_file(save_theta, slyth_theta)
     store_in_file(save_theta, gryff_theta)
