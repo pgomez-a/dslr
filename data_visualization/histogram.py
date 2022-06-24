@@ -12,10 +12,14 @@ def read_dataset():
         print("\033[1m\033[91mError. Dataset can't be read.\n\033[0m")
         sys.exit(1)
     label = 'Care of Magical Creatures'
-    if len(sys.argv) == 2 and sys.argv[1] in dataset.columns:
+    valid_columns = dataset.select_dtypes(include = 'number').columns
+    if len(sys.argv) == 2 and sys.argv[1] in valid_columns:
         label = sys.argv[1]
     elif len(sys.argv) == 2:
-        print("\033[1m\033[91mError. {} not in:\n\t{}.\n\033[0m".format(sys.argv[1], dataset.columns))
+        print("\033[1m\033[91mError. {} not in:\n\t{}.\n\033[0m".format(sys.argv[1], valid_columns))
+        sys.exit(1)
+    elif len(sys.argv) >= 3:
+        print("\033[1m\033[91mError. histogram.py does not take more than one argument.\n\033[0m")
         sys.exit(1)
     return dataset, label
 

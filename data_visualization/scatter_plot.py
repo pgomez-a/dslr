@@ -13,11 +13,15 @@ def read_dataset():
         sys.exit(1)
     xlabel = 'Astronomy'
     ylabel = 'Defense Against the Dark Arts'
-    if len(sys.argv) == 3 and sys.argv[1] in dataset.columns and sys.argv[2] in dataset.columns:
+    valid_columns = dataset.select_dtypes(include = 'number').columns
+    if len(sys.argv) == 3 and sys.argv[1] in valid_columns and sys.argv[2] in valid_columns:
         xlabel = sys.argv[1]
         ylabel = sys.argv[2]
     elif len(sys.argv) == 3:
-        print("\033[1m\033[91mError. [{}, {}] not in:\n\t{}.\n\033[0m".format(sys.argv[1], sys.argv[2], dataset.columns))
+        print("\033[1m\033[91mError. [{}, {}] not in:\n\t{}.\n\033[0m".format(sys.argv[1], sys.argv[2], valid_columns))
+        sys.exit(1)
+    elif len(sys.argv) == 2 or len(sys.argv) >= 4: 
+        print("\033[1m\033[91mError. scatter_plot.py can only take two arguments.\n\033[0m")
         sys.exit(1)
     return dataset, xlabel, ylabel
 
