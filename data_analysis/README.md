@@ -69,7 +69,7 @@ It gives us an idea of the **symmetry or asymmetry** of the data distribution **
 
 ### [Kurtosis coefficient](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.kurtosis.html)
 
-<img align="right" width="500" alt="kurtosis" src="https://user-images.githubusercontent.com/74931024/174413977-2e119279-a9f0-496d-bc1c-8a6998909cbe.png">
+<img align="right" width="500" alt="kurtosis" src="https://user-images.githubusercontent.com/74931024/175771256-9d760f19-2a21-479e-bd15-c51aa3cbab53.png">
 
 With this coefficient we get an idea of how **“spiky”** or **“flat”** a distribution is **(hence its shape)** compared to a standard distribution: the normal distribution.
 - **Kurtosis > 0** - The data distribution is more "beaked" than the normal distribution with the same mean and variance as the data.
