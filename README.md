@@ -26,3 +26,8 @@ For more information on the statistical graphs used to study the available data,
 <img width="410" alt="scatter plot" src="https://user-images.githubusercontent.com/74931024/174310127-6d693c4a-5cc6-4d85-a851-860e4736f235.png">
 <img width="900" alt="pair plot" src="https://user-images.githubusercontent.com/74931024/174330795-8aa7e669-f0c4-4fcb-8c2b-897726527baf.png">
 </div>
+
+### Logistic Regression
+The third part of **DSLR** is to train a **logistic regression** model with the provided datasets. However, instead of explaining in a few sentences what this model is about, I encourage you to complete the **[Machine Learning bootcamp](https://github.com/pgomez-a/42_ML_Piscine)** developed by the **[42-AI team](https://www.42ai.fr)**. I think that if you try to do all the tasks that have been given to you, you will get a deep understanding of how this model works. At the end of the day, there is a lot of math and statistics involved in these types of projects, so spending a little more time early on will go a long way for us in the future.<br><br>
+
+Similarly, if you prefer to start with a simpler project, I advise you to do the **[ft_linear_regression project](https://github.com/pgomez-a/ft_linear_regression)**. This project will introduce you to the world of **Machine Learning** by training a simple linear regression model. Most of the concepts we use in this logistic regression project are taken from linear regression, so this could be a good starting point if you want to delve into this amazing world of data understanding.
