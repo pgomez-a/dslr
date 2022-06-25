@@ -128,7 +128,7 @@ def get_fisher(dataset, mean, count, std):
 
 def get_kurtosis(dataset, mean, count, std):
     """
-    Computes the Curtosis' coefficient of each column for the given dataset.
+    Computes the Kurtosis' coefficient of each column for the given dataset.
     """
     kurtosis_list = np.array([])
     pos = 0
