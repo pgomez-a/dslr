@@ -10,7 +10,7 @@ For this reason, the first thing we need to do in **dslr** is to create an execu
 
 For more information on the mathematical formulas used to calculate the statistical measures, **[click here.](https://github.com/pgomez-a/dslr/tree/main/data_analysis)**
 
-<img align="center" width="850" alt="describe" src="https://user-images.githubusercontent.com/74931024/174412734-4ed7efef-6144-45a4-a1fb-fa5cd9987712.png">
+<img align="center" width="850" alt="describe" src="https://user-images.githubusercontent.com/74931024/175771479-19242b23-9558-4170-82ca-8eab7d6c2240.png">
 
 ### Data Visualization
 According to **[Wikipedia](https://en.wikipedia.org/wiki/Data_and_information_visualization)**: *"**Data visualization is an interdisciplinary field that deals with the graphic representation of data and information.**"*
