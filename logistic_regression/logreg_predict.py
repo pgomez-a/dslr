@@ -9,43 +9,44 @@ def read_dataset():
     Opens the given dataset.
     """
     if len(sys.argv) != 3:
-        print("\033[1m\033[91mi\rError. logreg_train.py needs a dataset and a thetas file.\n\033[0m")
+        print("\033[1m\033[91mError. logreg_train.py needs a dataset and a thetas file.\n\033[0m")
         sys.exit(1)
     try:
-        print("\033[1mReading dataset...\033[0m", end = "")
-        dataset = pd.read_csv(sys.argv[1])
+        print("\033[1mReading dataset...\033[0m")
+        dataset = pd.read_csv(sys.argv[1]).iloc[:, 1:]
     except:
-        print("\033[1m\033[91m\rError. {} can't be read.\n\033[0m".format(sys.argv[1]))
+        print("\033[1m\033[91mError. {} can't be read.\n\033[0m".format(sys.argv[1]))
         sys.exit(1)
-    return dataset
+    try:
+        print("\033[1mReading weights...\033[0m")
+        weights = pd.read_csv(sys.argv[2]).iloc[:, 1:]
+    except:
+        print("\033[1m\033[91mError. {} can't be read.\n\033[0m".format(sys.argv[2]))
+        sys.exit(1)
+    return dataset, weights
 
-def get_logreg_values(dataset):
+def normalize(X, mean_val, max_val, min_val):
+    """
+    Normalizes the given value.
+    """
+    X = X.transpose()
+    for pos in range(1, X.shape[0]):
+        X[pos] = (X[pos] - mean_val[pos]) / (max_val[pos] - min_val[pos])
+    return X.transpose()
+
+def get_logreg_values(dataset, weights):
     """
     Gets the dependent and independent variables.
     Gets the theta array with the according shape.
     """
-    print("\033[1m\rGetting independent variables...\033[0m", end = "")
-    X = np.array(dataset.select_dtypes(include = 'number').iloc[:, 2:])
+    print("\033[1mGetting independent variables...\033[0m")
+    mean_val = np.array(weights.loc[:, 'Mean']).reshape((1, -1))[0]
+    max_val = np.array(weights.loc[:, 'Max']).reshape((1, -1))[0]
+    min_val = np.array(weights.loc[:, 'Min']).reshape((1, -1))[0]
+    X = np.array(dataset.select_dtypes(include = 'number').iloc[:, 1:])
     X = np.insert(X, 0, 1, 1)
     X[np.isnan(X)] = 0.
-    theta = np.zeros([1, X.shape[1]]).reshape((-1, 1))
-    return X, theta
-
-def get_theta_values(label):
-    """
-    Gets the theta array for the corresponding label.
-    """
-    try:
-        with open(sys.argv[2], 'r') as f:
-            print("\033[1m\rGetting {} file...\033[0m".format(sys.argv[2]), end = "")
-            for i in range(label):
-                data = f.readline().split()
-            data = np.array(data).astype(float)
-            return data.reshape((-1, 1))
-    except:
-        print("\033[1m\033[91m\rError. {} file can't be read.\n\033[0m".format(sys.argv[2]))
-        sys.exit(1)
-
+    return normalize(X, mean_val, max_val, min_val)
 
 def sigmoid(X):
     """
@@ -63,7 +64,7 @@ def get_label_predictions(X, raven_theta, slyth_theta, gryff_theta, huffl_theta)
     """
     Computes the four predictions for the given thetas and creates and (n x 4) matrix.
     """
-    print("\033[1m\rPredicting students' house...\033[0m", end = "")
+    print("\033[1mPredicting students' house...\033[0m")
     raven_pred = predict(X, raven_theta)
     slyth_pred = predict(X, slyth_theta)
     gryff_pred = predict(X, gryff_theta)
@@ -88,16 +89,16 @@ def predict_house(predictions):
     houses[0] = houses[0].astype(int)
     houses.columns = ['Index', 'Hogwarts House']
     houses.to_csv('houses.csv', index = False)
-    print("\033[1m\rDone! houses.csv file has been created and saved.\n\033[0m")
+    print("\033[1m\nDone! houses.csv file has been created and saved.\n\033[0m")
 
 if __name__ == '__main__':
     warnings.filterwarnings('ignore')
-    dataset = read_dataset()
-    X, theta = get_logreg_values(dataset)
-    raven_theta = get_theta_values(1) 
-    slyth_theta = get_theta_values(2)
-    gryff_theta = get_theta_values(3)
-    huffl_theta = get_theta_values(4)
+    dataset, weights = read_dataset()
+    raven_theta = np.array(weights.loc[:, 'Raven']).reshape((-1, 1))
+    slyth_theta = np.array(weights.loc[:, 'Slyth']).reshape((-1, 1))
+    gryff_theta = np.array(weights.loc[:, 'Gryff']).reshape((-1, 1))
+    huffl_theta = np.array(weights.loc[:, 'Huffl']).reshape((-1, 1))
+    X = get_logreg_values(dataset, weights)
     predictions = get_label_predictions(X, raven_theta, slyth_theta, gryff_theta, huffl_theta)
     predict_house(predictions)
     sys.exit(0)

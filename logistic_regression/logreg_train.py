@@ -25,10 +25,19 @@ def get_logreg_values(dataset):
     """
     Y = np.array(dataset.loc[:, 'Hogwarts House']).reshape((-1, 1))
     X = np.array(dataset.select_dtypes(include = 'number').iloc[:, 1:])
-    X = np.insert(X, 0, 1, 1)
     X[np.isnan(X)] = 0.
+    X = np.insert(X, 0, 1, 1)
     theta = np.zeros([1, X.shape[1]]).reshape((-1, 1))
     return Y, X, theta
+
+def normalize(X):
+    """
+    Normalizes the given value.
+    """
+    X = X.transpose()
+    for pos in range(1, X.shape[0]):
+        X[pos] = (X[pos] - X[pos].mean()) / (max(X[pos]) - min(X[pos]))
+    return X.transpose()
 
 def progress_bar(iters, label):
     """
@@ -74,6 +83,7 @@ def train(Y, X, theta, label):
     max_iter = 10000
     Y[Y != label] = 0.
     Y[Y == label] = 1.
+    X = normalize(X)
     for i in progress_bar(max_iter, label):
         Y_hat = predict(X, theta)
         cost = (Y_hat - Y).astype(float)
@@ -81,25 +91,35 @@ def train(Y, X, theta, label):
         theta -= (alpha * tmp_theta)
     return theta
 
-def store_in_file(file, theta):
+def store_in_file(X, raven_theta, slyth_theta, gryff_theta, huffl_theta):
     """
     Stores in save_theta the given label_theta.
     """
-    for elem in theta:
-        file.write(str(elem[0]) + ' ')
-    file.write('\n')
+    mean_val = list()
+    max_val = list()
+    min_val = list()
+    for feature in X.transpose():
+        mean_val.append(feature.mean())
+        max_val.append(max(feature))
+        min_val.append(min(feature))
+    weights = pd.DataFrame([], dtype = object)
+    weights.insert(0, 'Raven', raven_theta.transpose()[0])
+    weights.insert(1, 'Slyth', slyth_theta.transpose()[0])
+    weights.insert(2, 'Gryff', gryff_theta.transpose()[0])
+    weights.insert(3, 'Huffl', huffl_theta.transpose()[0])
+    weights.insert(4, 'Mean', mean_val)
+    weights.insert(5, 'Max', max_val)
+    weights.insert(6, 'Min', min_val)
+    weights.to_csv('weights.csv')
+    print("\033[1m\nDone! weights.csv file has been created and saved.\n\033[0m")
 
 if __name__ == '__main__':
     warnings.filterwarnings('ignore')
     dataset = read_dataset()
-    save_theta = open('weights', 'w')
     Y, X, theta = get_logreg_values(dataset)
-    raven_theta = train(np.copy(Y), X, np.copy(theta), 'Ravenclaw') 
-    slyth_theta = train(np.copy(Y), X, np.copy(theta), 'Slytherin')
-    gryff_theta = train(np.copy(Y), X, np.copy(theta), 'Gryffindor')
-    huffl_theta = train(np.copy(Y), X, np.copy(theta), 'Hufflepuff')
-    store_in_file(save_theta, raven_theta)
-    store_in_file(save_theta, slyth_theta)
-    store_in_file(save_theta, gryff_theta)
-    store_in_file(save_theta, huffl_theta)
+    raven_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Ravenclaw') 
+    slyth_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Slytherin')
+    gryff_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Gryffindor')
+    huffl_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Hufflepuff')
+    store_in_file(X, raven_theta, slyth_theta, gryff_theta, huffl_theta)
     sys.exit(0)
