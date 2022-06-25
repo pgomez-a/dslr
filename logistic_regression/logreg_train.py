@@ -79,8 +79,8 @@ def train(Y, X, theta, label):
     """
     Trains the model adjusted to the desired label for the given parameters.
     """
-    alpha = 0.01
-    max_iter = 10000
+    alpha = 0.1 
+    max_iter = 50000
     Y[Y != label] = 0.
     Y[Y == label] = 1.
     X = normalize(X)
