@@ -39,3 +39,5 @@ The third part of **DSLR** is to train a **logistic regression** model with the 
 Similarly, if you prefer to start with a simpler project, I advise you to do the **[ft_linear_regression project](https://github.com/pgomez-a/ft_linear_regression)**. This project will introduce you to the world of **Machine Learning** by training a simple linear regression model. Most of the concepts we use in this logistic regression project are taken from linear regression, so this could be a good starting point if you want to delve into this amazing world of data understanding.<br>
 
 For more information on the training algorithms used to calculate the tightest weights, **[click here.](https://github.com/pgomez-a/dslr/tree/main/logistic_regression)**
+
+<img width="950" alt="train" src="https://user-images.githubusercontent.com/74931024/175793831-6db9f331-d159-453e-bd9a-008075781086.png">
