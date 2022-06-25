@@ -126,16 +126,16 @@ def get_fisher(dataset, mean, count, std):
         pos += 1
     return (fisher_list / count) / (std ** 3)
 
-def get_curtosis(dataset, mean, count, std):
+def get_kurtosis(dataset, mean, count, std):
     """
     Computes the Curtosis' coefficient of each column for the given dataset.
     """
-    curtosis_list = np.array([])
+    kurtosis_list = np.array([])
     pos = 0
     for label in dataset:
-        curtosis_list = np.append(curtosis_list, ((dataset[label] - mean[pos]) ** 4).sum())
+        kurtosis_list = np.append(kurtosis_list, ((dataset[label] - mean[pos]) ** 4).sum())
         pos += 1
-    return ((curtosis_list / count) / (std ** 4)) - 3
+    return ((kurtosis_list / count) / (std ** 4)) - 3
 
 if __name__ == '__main__':
     dataset = read_dataset()
@@ -152,9 +152,9 @@ if __name__ == '__main__':
     data_p50 = get_percentile(0.5, dataset, data_count)
     data_p75 = get_percentile(0.75, dataset, data_count)
     data_fisher = get_fisher(dataset, data_mean, data_count, data_std)
-    data_curtosis = get_curtosis(dataset, data_mean, data_count, data_std)
-    describe_values = [data_count, data_mean, data_var, data_std, data_cof, data_min, data_p25, data_p50, data_p75, data_max, data_rng, data_fisher, data_curtosis]
-    describe_index = ['count', 'mean', 'var', 'std', 'cof', 'min', '25%', '50%', '75%', 'max', 'rng', 'Fisher', 'Curtosis']
+    data_kurtosis = get_kurtosis(dataset, data_mean, data_count, data_std)
+    describe_values = [data_count, data_mean, data_var, data_std, data_cof, data_min, data_p25, data_p50, data_p75, data_max, data_rng, data_fisher, data_kurtosis]
+    describe_index = ['count', 'mean', 'var', 'std', 'cof', 'min', '25%', '50%', '75%', 'max', 'rng', 'Fisher', 'Kurtosis']
     describe = pd.DataFrame(describe_values, index = describe_index, columns = dataset.columns)
     print("\n", describe, "\n")
     sys.exit(0)
