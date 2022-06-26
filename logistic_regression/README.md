@@ -9,7 +9,7 @@ As we delve into the amazing world of **Machine Learning**, it's a good idea to 
 
 ### Gradient Descent
 
-<img align = 'right' width="300" alt="gradient_descent" src="https://user-images.githubusercontent.com/74931024/175813967-9bee5b1c-0e1d-4148-ac5b-a7cce42c761e.png">
+<img align = 'right' width="300" alt="gradient_descent" src="https://user-images.githubusercontent.com/74931024/175814121-fc6cbe88-fa80-448e-ba4a-729ae131aab4.png">
 
 As we should know, one way to measure the reliability of our model is by calculating its error. In this way, **the smaller the error, the better our model will be**, since the predictions will be more adjusted to our training data. The fact that we can calculate the error of our model is due to the fact that we can represent it by means of a mathematical formula that represents this error. So, like any mathematical formula, it will have maximums, minimums, etc. Since we want to obtain the **minimum possible error**, what we are going to do is find the minimum point of the function (or one of them), and once there, we will know that it will have the best fitted model.<br>
 
