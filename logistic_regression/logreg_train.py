@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import warnings
+import random
 import math
 import sys
 
@@ -75,12 +76,49 @@ def loss(Y, Y_hat, theta, label):
     Y_hat[Y_hat == 1.] -= 1e-15
     return -sum(Y * np.log(Y_hat) + (1 - Y) * np.log(1 - Y_hat)) / Y.size
 
-def train(Y, X, theta, label):
+def stochastic_train(Y, X, theta, label):
     """
-    Trains the model adjusted to the desired label for the given parameters.
+    Trains the model adjusted to the desired label for the given parameters
+    using a batch gradient descent.
     """
-    alpha = 0.1 
-    max_iter = 50000
+    alpha = 0.01
+    max_iter = 1000
+    Y[Y != label] = 0.
+    Y[Y == label] = 1.
+    X = normalize(X)
+    for i in progress_bar(max_iter, label):
+        sgd_pos = random.randint(0, X.shape[0] - 1)
+        Y_hat = predict(X[sgd_pos, :], theta)
+        cost = (Y_hat - Y[sgd_pos]).astype(float)
+        tmp_theta = np.matmul(X[sgd_pos, :].reshape(-1, 1), cost.reshape(-1, 1))
+        theta -= (alpha * tmp_theta)
+    return theta
+
+def mini_batch_train(Y, X, theta, label):
+    """
+    Trains the model adjusted to the desired label for the given parameters
+    using a batch gradient descent.
+    """
+    alpha = 0.01
+    max_iter = 1000
+    Y[Y != label] = 0.
+    Y[Y == label] = 1.
+    X = normalize(X)
+    for i in progress_bar(max_iter, label):
+        sgd_pos = random.randint(0, X.shape[0] - 51)
+        Y_hat = predict(X[sgd_pos:sgd_pos + 50, :], theta)
+        cost = (Y_hat - Y[sgd_pos:sgd_pos + 50]).astype(float)
+        tmp_theta = np.matmul(X[sgd_pos:sgd_pos + 50, :].transpose(), cost)
+        theta -= (alpha * tmp_theta)
+    return theta
+
+def batch_train(Y, X, theta, label):
+    """
+    Trains the model adjusted to the desired label for the given parameters
+    using a batch gradient descent.
+    """
+    alpha = 0.01
+    max_iter = 1000
     Y[Y != label] = 0.
     Y[Y == label] = 1.
     X = normalize(X)
@@ -117,9 +155,9 @@ if __name__ == '__main__':
     warnings.filterwarnings('ignore')
     dataset = read_dataset()
     Y, X, theta = get_logreg_values(dataset)
-    raven_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Ravenclaw') 
-    slyth_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Slytherin')
-    gryff_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Gryffindor')
-    huffl_theta = train(np.copy(Y), np.copy(X), np.copy(theta), 'Hufflepuff')
+    raven_theta = batch_train(np.copy(Y), np.copy(X), np.copy(theta), 'Ravenclaw') 
+    slyth_theta = batch_train(np.copy(Y), np.copy(X), np.copy(theta), 'Slytherin')
+    gryff_theta = batch_train(np.copy(Y), np.copy(X), np.copy(theta), 'Gryffindor')
+    huffl_theta = batch_train(np.copy(Y), np.copy(X), np.copy(theta), 'Hufflepuff')
     store_in_file(X, raven_theta, slyth_theta, gryff_theta, huffl_theta)
     sys.exit(0)
