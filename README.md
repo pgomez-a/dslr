@@ -45,4 +45,4 @@ Similarly, if you prefer to start with a simpler project, I advise you to do the
 
 For more information on the training algorithms used to calculate the tightest weights, **[click here.](https://github.com/pgomez-a/dslr/tree/main/logistic_regression)**
 
-<img width="900" alt="train" src="https://user-images.githubusercontent.com/74931024/175793831-6db9f331-d159-453e-bd9a-008075781086.png">
+<img width="900" alt="train" src="https://user-images.githubusercontent.com/74931024/176227435-e273a67b-e651-4a23-8e37-cc4972b785b6.png">
